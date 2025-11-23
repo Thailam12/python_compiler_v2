@@ -1,5 +1,6 @@
 const codeEl = document.getElementById("code");
 const filenameEl = document.getElementById("filename");
+const usernameEl = document.getElementById("username"); // thêm dòng này
 const outputEl = document.getElementById("output");
 const btnRun = document.getElementById("btnRun");
 const btnSave = document.getElementById("btnSave");
@@ -21,10 +22,12 @@ btnRun.onclick = async () => {
 btnSave.onclick = async () => {
   const code = codeEl.value;
   const filename = filenameEl.value.trim() || "untitled";
+  const username = usernameEl.value.trim() || "guest"; // lấy tên
+
   const res = await fetch("/api/save", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ code, filename })
+    body: JSON.stringify({ code, filename, username }) // gửi thêm username
   });
   const data = await res.json();
   alert("Đã lưu: " + data.id);
@@ -38,7 +41,7 @@ async function loadHistory() {
   historyList.innerHTML = "";
   items.forEach(it => {
     const li = document.createElement("li");
-    li.textContent = it.id;
+    li.textContent = `${it.id} (${it.username || "guest"})`; // hiển thị tên
     li.onclick = async () => {
       const res = await fetch("/api/load/" + it.id);
       const data = await res.json();

@@ -12,3 +12,10 @@ pre { background:#11152b; padding:10px; border-radius:8px; margin-top:10px; min-
 ul { list-style:none; padding:0; }
 li { margin:6px 0; cursor:pointer; color:#9fb2ff; }
 li:hover { text-decoration:underline; }
+#username {
+  width: 400px;   /* rộng */
+  height: 50px;  /* cao */
+  font-size: 20px; /* chữ to hơn */
+  padding: 10px;
+  margin-bottom: 20px;
+}

@@ -36,32 +36,42 @@ app.post("/api/run", (req, res) => {
   });
 });
 
-// Save code vào lịch sử
+// Save code vào lịch sử (cập nhật thêm username)
 app.post("/api/save", (req, res) => {
-  const { code, filename } = req.body;
+  const { code, filename, username } = req.body;   // nhận thêm username
   const date = new Date();
   const ddmmyyyy = date.toLocaleDateString("vi-VN").replace(/\//g, "-");
   const id = `${ddmmyyyy}_${filename}`;
 
   const history = loadHistory();
-  history.push({ id, code, date: date.toISOString() });
+  history.push({
+    id,
+    code,
+    filename,
+    username: username || "guest",   // lưu tên
+    date: date.toISOString()
+  });
   saveHistory(history);
 
   res.json({ saved: true, id });
 });
 
-// List history
+// List history (trả thêm username)
 app.get("/api/list", (req, res) => {
   const history = loadHistory();
-  res.json(history.map(h => ({ id: h.id, date: h.date })));
+  res.json(history.map(h => ({
+    id: h.id,
+    date: h.date,
+    username: h.username || "guest"
+  })));
 });
 
-// Load code từ lịch sử
+// Load code từ lịch sử (trả thêm username)
 app.get("/api/load/:id", (req, res) => {
   const history = loadHistory();
   const item = history.find(h => h.id === req.params.id);
   if (!item) return res.status(404).json({ error: "Not found" });
-  res.json({ code: item.code });
+  res.json({ code: item.code, username: item.username || "guest" });
 });
 
 app.listen(3000, () => console.log("Python IDE server chạy tại http://localhost:3000"));

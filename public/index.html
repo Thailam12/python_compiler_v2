@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Python IDE Mini</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Python IDE Mini</h1>
+  </header>
+
+  <main>
+    <section class="editor">
+      <textarea id="code" placeholder="Viết code Python ở đây..."></textarea>
+      <input id="filename" placeholder="Tên file (không có .py)" />
+      <div class="buttons">
+        <button id="btnRun">Run</button>
+        <button id="btnSave">Save</button>
+      </div>
+      <pre id="output"></pre>
+    </section>
+
+    <section class="history">
+      <h2>Lịch sử</h2>
+      <ul id="historyList"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
